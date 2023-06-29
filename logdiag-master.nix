@@ -7,9 +7,9 @@ pkgs.stdenv.mkDerivation rec {
 	version = "master";
 
 	nativeBuildInputs = with pkgs; [
+		wrapGAppsHook
 		cmake
 		pkg-config
-		wrapGAppsHook
 	];
 
 	buildInputs = with pkgs; [

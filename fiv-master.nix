@@ -7,6 +7,7 @@ pkgs.stdenv.mkDerivation rec {
 	version = "master";
 
 	nativeBuildInputs = with pkgs; [
+		wrapGAppsHook
 		meson
 		pkg-config
 		ninja
@@ -46,6 +47,9 @@ pkgs.stdenv.mkDerivation rec {
 	# Up for consideration: don't rely on shebangs at all.
 	patchPhase = ''
 		patchShebangs .
+
+		# https://gitlab.gnome.org/GNOME/glib/-/issues/30240
+		ulimit -n 8192
 	'';
 
 	mesonFlags = [
@@ -66,6 +70,12 @@ pkgs.stdenv.mkDerivation rec {
 		"-Dlibtiff=disabled"
 		"-Dgdk-pixbuf=disabled"
 	];
+
+	preFixup = ''
+		gappsWrapperArgs+=(
+			--prefix PATH : $out/bin:${pkgs.lib.makeBinPath [ pkgs.exiftool ]}
+		)
+	'';
 
 	doCheck = true;
 
