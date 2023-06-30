@@ -13,6 +13,7 @@ pkgs.stdenv.mkDerivation rec {
 
 	buildInputs = with pkgs; [
 		ncurses
+	] ++ lib.optionals stdenv.isLinux [
 		acl
 	];
 
@@ -31,7 +32,7 @@ pkgs.stdenv.mkDerivation rec {
 	meta = with pkgs.lib; {
 		description = "Directory navigator";
 		homepage = "https://git.janouch.name/p/${pname}";
-		# libacl, __STDC_ISO_10646__
+		# libacl, __STDC_ISO_10646__, crash bug in libc++
 		platforms = platforms.linux;
 		license = licenses.bsd0;
 	};

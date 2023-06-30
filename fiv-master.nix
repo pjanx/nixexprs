@@ -1,6 +1,7 @@
 { pkgs ? import <nixpkgs> { }
 , local ? false
 , full ? true
+, withResvg ? false
 }:
 pkgs.stdenv.mkDerivation rec {
 	pname = "fiv";
@@ -27,9 +28,10 @@ pkgs.stdenv.mkDerivation rec {
 		libepoxy
 	] ++ lib.optionals full [
 		lcms2
-		#resvg
 		librsvg
 		libheif
+	] ++ lib.optionals withResvg [
+		resvg
 	];
 
 	src = if local then
@@ -59,7 +61,6 @@ pkgs.stdenv.mkDerivation rec {
 		"-Dlcms2fastfloat=disabled"
 
 		"-Dtools=enabled"
-		#"-Dresvg=enabled"
 	] ++ pkgs.lib.optionals (!full) [
 		"-Dlcms2=disabled"
 		"-Dlibraw=disabled"
@@ -69,6 +70,8 @@ pkgs.stdenv.mkDerivation rec {
 		"-Dlibheif=disabled"
 		"-Dlibtiff=disabled"
 		"-Dgdk-pixbuf=disabled"
+	] ++ pkgs.lib.optionals withResvg [
+		"-Dresvg=enabled"
 	];
 
 	preFixup = ''
