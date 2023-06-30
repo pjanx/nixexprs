@@ -1,0 +1,15 @@
+Nix expressions
+===============
+
+This is a Nix channel for bleeding-edge versions of my projects.
+While it primarily serves my own needs, you may use it to try the software out.
+
+.Example 1: Just build a project, without commitment
+ $ nix-build https://git.janouch.name/p/nixexprs/archive/master.tar.gz -A fiv-master
+ $ ./result/bin/fiv
+
+.Example 2: Install the project
+ $ nix-env -f https://git.janouch.name/p/nixexprs/archive/master.tar.gz -iA fiv-master
+
+By default, all optional features are enabled.  For the sake of simplicity,
+all you can do about it is to go to the other extreme, using `--arg full false`.
