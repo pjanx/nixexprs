@@ -3,7 +3,7 @@
 , full ? true
 }:
 pkgs.stdenv.mkDerivation rec {
-	pname = "sensei-raw-ctl";
+	pname = "razer-bw-te-ctl";
 	version = "master";
 
 	nativeBuildInputs = with pkgs; [
@@ -14,23 +14,6 @@ pkgs.stdenv.mkDerivation rec {
 
 	buildInputs = with pkgs; [
 		libusb
-	] ++ lib.optionals full [
-		gtk3
-
-		# To address pkg-config warnings, all the way down.
-		libthai
-		pcre2
-		libdatrie
-		libepoxy
-	] ++ lib.optionals (full && !stdenv.isDarwin) [
-		libxkbcommon
-		xorg.libXdmcp
-		xorg.libXtst
-	] ++ lib.optionals (full && stdenv.isLinux) [
-		util-linux
-		libselinux
-		libsepol
-		pcre
 	];
 
 	src = if local then
@@ -48,7 +31,7 @@ pkgs.stdenv.mkDerivation rec {
 	doCheck = true;
 
 	meta = with pkgs.lib; {
-		description = "SteelSeries Sensei Raw control utility";
+		description = "Razer BlackWidow Tournament Edition control utility";
 		homepage = "https://git.janouch.name/p/${pname}";
 		platforms = platforms.all;
 		license = licenses.bsd0;
