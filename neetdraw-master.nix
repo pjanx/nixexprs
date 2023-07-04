@@ -13,6 +13,7 @@ pkgs.stdenv.mkDerivation rec {
 
 	buildInputs = with pkgs; [
 		ncurses
+		libiconv
 		libev
 
 		# Termo demo-glib.c
