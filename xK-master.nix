@@ -22,6 +22,14 @@ pkgs.stdenv.mkDerivation rec {
 	] ++ lib.optionals full [
 		readline
 		lua5_3
+
+		# xB plugins
+		guile
+		tcl
+		perl
+		ruby
+		tinycc
+		python3
 	] ++ lib.optionals (!full) [
 		libedit
 	];
