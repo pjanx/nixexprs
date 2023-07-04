@@ -3,7 +3,8 @@
 , full ? true
 }:
 pkgs.stdenv.mkDerivation rec {
-	pname = "xK";
+	_pname = "xK";
+	pname = pkgs.lib.strings.toLower _pname;
 	version = "master";
 
 	nativeBuildInputs = with pkgs; [
@@ -37,12 +38,12 @@ pkgs.stdenv.mkDerivation rec {
 
 	src = if local then
 		builtins.path {
-			path = ../${pname}/git;
-			name = "${pname}";
+			path = ../${_pname}/git;
+			name = "${_pname}";
 		}
 	else
 		fetchGit {
-			url = "https://git.janouch.name/p/${pname}.git";
+			url = "https://git.janouch.name/p/${_pname}.git";
 			submodules = true;
 			ref = "master";
 		};
@@ -55,10 +56,11 @@ pkgs.stdenv.mkDerivation rec {
 	];
 
 	xP = pkgs.buildGoModule rec {
-		pname = "xP";
+		_pname = "xP";
+		pname = pkgs.lib.strings.toLower _pname;
 		inherit version src doCheck meta;
 
-		modRoot = "./${pname}/";
+		modRoot = "./${_pname}/";
 #		vendorHash = pkgs.lib.fakeHash;
 		vendorHash = "sha256-TK3rivjzYZwG8bfia22iQO5ZKnBzeIidsHNl6jnQUio=";
 
@@ -85,10 +87,11 @@ pkgs.stdenv.mkDerivation rec {
 	};
 
 	xS = pkgs.buildGoModule rec {
-		pname = "xS";
+		_pname = "xS";
+		pname = pkgs.lib.strings.toLower _pname;
 		inherit version src doCheck meta;
 
-		modRoot = "./${pname}/";
+		modRoot = "./${_pname}/";
 		vendorHash = null;
 
 		# This invokes a premature build that may miss compiler flags.
@@ -108,7 +111,7 @@ pkgs.stdenv.mkDerivation rec {
 	meta = with pkgs.lib; {
 		description = "IRC daemon, bot, TUI client"
 			+ optionals full " and its web frontend";
-		homepage = "https://git.janouch.name/p/${pname}";
+		homepage = "https://git.janouch.name/p/${_pname}";
 		platforms = platforms.all;
 		license = licenses.bsd0;
 	};
