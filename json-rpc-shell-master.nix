@@ -18,14 +18,11 @@ pkgs.stdenv.mkDerivation rec {
 		jansson
 		curl
 		libev
+		perl
 	] ++ lib.optionals full [
 		readline
 	] ++ lib.optionals (!full) [
 		libedit
-	];
-
-	propagatedBuildInputs = with pkgs; [
-		perl
 	];
 
 	src = if local then
