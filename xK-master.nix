@@ -5,6 +5,7 @@
 pkgs.stdenv.mkDerivation rec {
 	_pname = "xK";
 	pname = pkgs.lib.strings.toLower _pname;
+	_version = pkgs.lib.strings.fileContents (src + "/xK-version");
 	version = "master";
 
 	nativeBuildInputs = with pkgs; [
@@ -97,6 +98,13 @@ pkgs.stdenv.mkDerivation rec {
 		# This invokes a premature build that may miss compiler flags.
 		preBuild = ''
 			make
+		'';
+
+		ldflags = [ "-X 'main.projectVersion=${_version}'" ];
+
+		postInstall = ''
+			mkdir -p $out/share/man/man1
+			mv xS.1 $out/share/man/man1
 		'';
 	};
 
