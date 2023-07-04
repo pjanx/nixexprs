@@ -17,12 +17,12 @@ pkgs.stdenv.mkDerivation rec {
 		xorg.libXdmcp
 		libpulseaudio
 		dbus.dev
-	] ++ lib.optionals full [
+	] ++ lib.optionals (full && stdenv.isLinux) [
 		gnome.gdm.dev
 		glib
 		pcre2
 		systemd.dev
-	] ++ lib.optionals (full && stdenv.isLinux) [
+
 		# To address pkg-config warnings for glib.
 		util-linux
 		libselinux
