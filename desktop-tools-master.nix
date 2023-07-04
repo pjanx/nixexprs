@@ -17,6 +17,7 @@ pkgs.stdenv.mkDerivation rec {
 		xorg.libXdmcp
 		libpulseaudio
 		dbus.dev
+		python3
 	] ++ lib.optionals (full && stdenv.isLinux) [
 		gnome.gdm.dev
 		glib
