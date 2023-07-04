@@ -28,8 +28,9 @@ pkgs.stdenv.mkDerivation rec {
 		tcl
 		perl
 		ruby
-		tinycc
 		python3
+	] ++ lib.optionals (full && !tinycc.meta.broken) [
+		tinycc
 	] ++ lib.optionals (!full) [
 		libedit
 	];
