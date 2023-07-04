@@ -14,7 +14,6 @@ let
 			ncurses
 			inkscape
 			#(groff.override { enableGhostscript = true; })
-			libreoffice
 			imagemagick
 
 			openssl
@@ -22,6 +21,9 @@ let
 			nss.tools
 			# pdfsig
 			(poppler.override { utils = true; })
+		] ++ lib.optionals stdenv.isLinux [
+			# Missing on macOS as of writing.
+			libreoffice
 		];
 
 		src = if local then
