@@ -12,6 +12,8 @@ pkgs.stdenv.mkDerivation rec {
 
 		go
 		nodejs
+	] ++ lib.optionals stdenv.isDarwin [
+		# This was broken on Linux.
 		swift
 	];
 
