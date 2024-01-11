@@ -20,6 +20,7 @@ pkgs.stdenv.mkDerivation rec {
 	];
 
 	buildInputs = with pkgs; [
+		gnome.adwaita-icon-theme
 		gtk3
 		libwebp
 		libraw
@@ -74,8 +75,11 @@ pkgs.stdenv.mkDerivation rec {
 		"-Dresvg=enabled"
 	];
 
+	# See nixpkgs commit b1e73fa2e086f1033a33d93524ae2a1781d12b95 about icons.
+	# It used to work automatically.
 	preFixup = ''
 		gappsWrapperArgs+=(
+			--prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS"
 			--prefix PATH : $out/bin:${pkgs.lib.makeBinPath [ pkgs.exiftool ]}
 		)
 	'';

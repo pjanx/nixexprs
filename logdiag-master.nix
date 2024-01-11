@@ -13,6 +13,7 @@ pkgs.stdenv.mkDerivation rec {
 	];
 
 	buildInputs = with pkgs; [
+		gnome.adwaita-icon-theme
 		gtk3
 		json-glib
 		lua5_2
@@ -52,6 +53,14 @@ pkgs.stdenv.mkDerivation rec {
 	cmakeFlags = [
 		"-DBUILD_TESTING=ON"
 	];
+
+	# See nixpkgs commit b1e73fa2e086f1033a33d93524ae2a1781d12b95 about icons.
+	# It used to work automatically.
+	preFixup = ''
+		gappsWrapperArgs+=(
+			--prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS"
+		)
+	'';
 
 	doCheck = true;
 
