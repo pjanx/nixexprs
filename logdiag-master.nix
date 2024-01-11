@@ -55,7 +55,8 @@ pkgs.stdenv.mkDerivation rec {
 	];
 
 	# See nixpkgs commit b1e73fa2e086f1033a33d93524ae2a1781d12b95 about icons.
-	# It used to work automatically.
+	# It might make sense to name {hicolor,gnome.adwaita}-icon-theme/share
+	# explicitly, to limit undesired dependencies.
 	preFixup = ''
 		gappsWrapperArgs+=(
 			--prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS"
