@@ -12,6 +12,8 @@ pkgs.stdenv.mkDerivation rec {
 
 		# Tests
 		desktop-file-utils
+	] ++ lib.optionals full [
+		librsvg
 	];
 
 	buildInputs = with pkgs; [
@@ -28,6 +30,7 @@ pkgs.stdenv.mkDerivation rec {
 	] ++ lib.optionals full [
 		lua5_3
 
+		libpng
 		xorg.libXft
 		xorg.libXau
 		xorg.libXdmcp
