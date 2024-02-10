@@ -13,6 +13,8 @@ pkgs.stdenv.mkDerivation rec {
 		# Tests
 		libxml2
 		desktop-file-utils
+	] ++ lib.optionals full [
+		librsvg
 	];
 
 	buildInputs = with pkgs; [
@@ -30,6 +32,7 @@ pkgs.stdenv.mkDerivation rec {
 	] ++ lib.optionals full [
 		fftw
 		fftwSinglePrec
+		libpng
 		libpulseaudio
 		xorg.libXft
 		xorg.libXau
