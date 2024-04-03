@@ -108,10 +108,33 @@ pkgs.stdenv.mkDerivation rec {
 		'';
 	};
 
+	xN = pkgs.buildGoModule rec {
+		_pname = "xN";
+		pname = pkgs.lib.strings.toLower _pname;
+		inherit version src doCheck meta;
+
+		modRoot = "./${_pname}/";
+		vendorHash = null;
+
+		# This invokes a premature build that may miss compiler flags.
+		preBuild = ''
+			make
+		'';
+
+		ldflags = [ "-X 'main.projectVersion=${_version}'" ];
+
+		postInstall = ''
+			mkdir -p $out/share/man/man1
+			mv xN.1 $out/share/man/man1
+		'';
+	};
+
 	# While we can't include them in this derivation, we can link to them.
 	postInstall = pkgs.lib.optionals full ''
 		makeWrapper ${xP}/lib/xP/xP $out/bin/xP --chdir ${xP}/share/xP/public
 		makeWrapper ${xS}/bin/xS $out/bin/xS
+		makeWrapper ${xN}/bin/xN $out/bin/xN
+		ln -s ${xS}/share/man/man1/* ${xN}/share/man/man1/* $out/share/man/man1
 	'';
 
 	doCheck = true;
