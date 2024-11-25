@@ -43,13 +43,9 @@ pkgs.stdenv.mkDerivation rec {
 			ref = "master";
 		};
 
-	# It's a weird mess, gdm.pc.in includes the subdirectory in includedir.
-	patchPhase = ''
-		sed -i 's|gdm-user-switching.h>|gdm/&|' gdm-switch-user.c
-	'';
-
 	cmakeFlags = [
 		"-DSYSTEMD_UNITDIR=${placeholder "out"}/lib/systemd/system"
+		"-DSETUID="
 	];
 
 	doCheck = true;

@@ -3,7 +3,7 @@
 , full ? true
 }:
 pkgs.stdenv.mkDerivation rec {
-	pname = "razer-bw-te-ctl";
+	pname = "usb-drivers";
 	version = "master";
 
 	nativeBuildInputs = with pkgs; [
@@ -14,6 +14,7 @@ pkgs.stdenv.mkDerivation rec {
 
 	buildInputs = with pkgs; [
 		libusb
+		hidapi
 	];
 
 	src = if local then
@@ -28,10 +29,14 @@ pkgs.stdenv.mkDerivation rec {
 			ref = "master";
 		};
 
+	cmakeFlags = [
+		"-DSETUID="
+	];
+
 	doCheck = true;
 
 	meta = with pkgs.lib; {
-		description = "Razer BlackWidow Tournament Edition control utility";
+		description = "User space USB drivers";
 		homepage = "https://git.janouch.name/p/${pname}";
 		platforms = platforms.all;
 		license = licenses.bsd0;
