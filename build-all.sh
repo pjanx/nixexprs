@@ -3,6 +3,8 @@
 # in all available configurations--Nix introspection is a bit complicated,
 # so they're listed explicitly.
 
+# In case of stale checkouts: rm -rf ~/.cache/nix
+
 build() {
 	echo "$(tput bold)-- Building $*$(tput sgr0)"
 	nix-build --arg local ${LOCAL:-false} "$@"
