@@ -13,7 +13,7 @@ pkgs.stdenv.mkDerivation rec {
 	];
 
 	buildInputs = with pkgs; [
-		libusb
+		libusb1
 		hidapi
 	];
 
