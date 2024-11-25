@@ -63,7 +63,7 @@ pkgs.stdenv.mkDerivation rec {
 
 		modRoot = "./${_pname}/";
 #		vendorHash = pkgs.lib.fakeHash;
-		vendorHash = "sha256-TK3rivjzYZwG8bfia22iQO5ZKnBzeIidsHNl6jnQUio=";
+		vendorHash = "sha256-feaUOP+joGnpjqniCtstRGHwcMyGNZ95PwEXWzjmjIk=";
 
 		mithril = pkgs.fetchurl {
 			url = "https://unpkg.com/mithril@2.2.3/mithril.js";
@@ -128,6 +128,8 @@ pkgs.stdenv.mkDerivation rec {
 			mv xN.1 $out/share/man/man1
 		'';
 	};
+
+	# Ignoring xA, as it is huge, and already checked through CI.
 
 	# While we can't include them in this derivation, we can link to them.
 	postInstall = pkgs.lib.optionals full ''
