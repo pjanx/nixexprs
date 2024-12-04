@@ -10,6 +10,8 @@ pkgs.stdenv.mkDerivation rec {
 		cmake
 		pkg-config
 		help2man
+	] ++ lib.optionals stdenv.isDarwin [
+		librsvg
 	];
 
 	buildInputs = with pkgs; [
